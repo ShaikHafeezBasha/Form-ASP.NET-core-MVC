@@ -1,0 +1,70 @@
+﻿@model List<Student>
+
+@{
+    ViewData["Title"] = "StudentsList";
+}
+
+<h1>StudentsList</h1>
+<table class="table table-responsive table-striped table-bordered table-hover">
+    <thead class="fw-bold">
+        <tr>
+            <th>StudentId</th>
+            <th>Full Name</th>
+            <th>Password</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Branch</th>
+            <th>Hobbies</th>
+            <th>Skills</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var st in Model)
+        {
+            <tr>
+                <td>@st.StudentId</td>
+                <td>@st.FullName</td>
+                <td class="text-decoration-line-through">@st.Password</td>
+                <td>@st.DateOfBirth</td>
+                <td>@st.Gender</td>
+                <td>@st.Address</td>
+                <td>@st.Branch</td>
+                <td>
+                    @foreach (var hobby in st.Hobbies)
+                    {
+                        <span>@hobby</span>
+                        @if (hobby != st.Hobbies.Last())
+                        {
+                            <span>, </span>
+                        }
+                    }
+                </td>
+
+                <td>
+                    @foreach (var skill in st.Skills)
+                    {
+                        <span>@skill</span>
+                        @if (skill != st.Skills.Last())
+                        {
+                            <span>, </span>
+                        }
+                    }
+                </td>
+                <td>
+                    <form asp-action="Details" asp-controller="Student" asp-route-Id="@st.StudentId">
+                        <button class="btn btn-info">Details</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    
+</table>
+<div class="text-center">
+    <form asp-action="Registration" asp-controller="Student">
+        <button class="btn btn-primary w-25 fs-3 mt-5">New Registration</button>
+    </form>
+</div>
+
