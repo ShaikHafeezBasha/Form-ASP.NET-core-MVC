@@ -73,6 +73,10 @@ namespace Form.Controllers
         public IActionResult Details(int Id)
         {
             var student = students.ElementAtOrDefault(Id-1);
+            if(student == null)
+            {
+                return NotFound();
+            }
             return View(student);
         }
     }
